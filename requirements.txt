@@ -1,0 +1,2 @@
+# A interface utiliza tkinter, que acompanha muitas instalacoes do Python.
+# O algoritmo e o gerador de mapas usam apenas a biblioteca padrao.
