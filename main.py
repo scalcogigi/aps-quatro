@@ -1,14 +1,10 @@
-
-"""APS: entrega de pacote em grid. Execute: python interface.py"""
-
 import heapq
 import itertools
 import random
 import tkinter as tk
 from tkinter import messagebox
 
-# HIPÓTESE TEMPORÁRIA:
-# Custo 1 por ação, com acréscimo de 4 em células de pedágio.
+# custo 1 + pedágio 4
 PEDAGIO_EXTRA = 4
 
 MOVIMENTOS = {
@@ -57,7 +53,6 @@ def heuristica(estado, destino):
 
 
 def buscar(n, inicio, pacote, destino, obstaculos, pedagios):
-    """Executa A* e retorna estados, ações e custo."""
 
     inicial = (inicio, pacote, False, False)
 
@@ -92,7 +87,7 @@ def buscar(n, inicio, pacote, destino, obstaculos, pedagios):
 
         proximos = []
 
-        # Movimentos do agente
+        # movimentos
         for acao, (di, dj) in MOVIMENTOS.items():
             novo = (pos[0] + di, pos[1] + dj)
 
@@ -109,21 +104,21 @@ def buscar(n, inicio, pacote, destino, obstaculos, pedagios):
                 (novo, nova_pos_pacote, carregando, False)
             ))
 
-        # Pegar pacote
+        # pega o pacote
         if not carregando and pos == pacote_atual:
             proximos.append((
                 "pegar",
                 (pos, pos, True, False)
             ))
 
-        # Entregar pacote
+        # entrega pacote
         if carregando and pos == destino:
             proximos.append((
                 "entregar",
                 (pos, pos, False, True)
             ))
 
-        # Avaliar sucessores
+        # avaliar sucessores
         for acao, proximo in proximos:
 
             novo_custo = (
